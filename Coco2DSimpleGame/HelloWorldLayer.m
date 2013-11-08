@@ -25,6 +25,7 @@
 
 CCLabelTTF * lifesLabel;
 CCLabelTTF * scoreLabel;
+CCLabelTTF * cheatModeLabel;
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) scene
@@ -77,6 +78,13 @@ CCLabelTTF * scoreLabel;
         player.position = ccp(player.contentSize.width/2, winSize.height/2);
         [self addChild:player];
         
+        _cheatMode = true;
+        
+        cheatModeLabel = [CCLabelTTF labelWithString:@"Cheat: ON" fontName:@"Arial" fontSize:10];
+        cheatModeLabel.color = ccc3(0,0,0);
+        cheatModeLabel.position = ccp(40, winSize.height - lifesLabel.contentSize.height/2 - 3);
+        [self addChild:cheatModeLabel];
+        
         scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score: %d", self.score] fontName:@"Arial" fontSize:10];
         scoreLabel.color = ccc3(0,0,0);
         scoreLabel.position = ccp(winSize.width - 30, winSize.height - scoreLabel.contentSize.height/2 - 3);
@@ -100,8 +108,7 @@ CCLabelTTF * scoreLabel;
     [self addMonster];
 }
 
-- (void) addMonster {
-    
+- (CCSprite *) createSimpleMonster {
     CCSprite * monster = [CCSprite spriteWithFile:@"monster.png"];
     
     // Determine where to spawn the monster along the Y axis
@@ -114,7 +121,13 @@ CCLabelTTF * scoreLabel;
     // Create the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
     monster.position = ccp(winSize.width + monster.contentSize.width/2, actualY);
-    [self addChild:monster];
+    
+    CCRotateBy * rotateLeft = [CCRotateBy actionWithDuration:0.5 angle:7.5];
+    CCRotateBy * rotateRight = [CCRotateBy actionWithDuration:0.5 angle:-15];
+    CCSequence * pulseSequence = [CCSequence actionOne:rotateLeft two:rotateRight];
+    [monster runAction:[CCRepeatForever actionWithAction:pulseSequence]];
+    
+    [self addChild:monster];//here
     
     // Determine speed of the monster
     int minDuration = 2.0;
@@ -128,7 +141,10 @@ CCLabelTTF * scoreLabel;
     CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
         
-        _lifes--;
+        if ( ! _cheatMode ){
+            _lifes--;
+        }
+        
         [lifesLabel setString: [NSString stringWithFormat:@"Lifes: %d", _lifes]];
         
         if ( _lifes == 0 ) {
@@ -145,6 +161,94 @@ CCLabelTTF * scoreLabel;
     [monster runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
     
     monster.tag = 1;
+
+    return monster;
+}
+
+- (CCSprite *) createMediumMonster {
+    
+    CCSprite * monster;
+    CCAction * walkAction;
+    
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animMediumMonster.plist"];
+
+    CCSpriteBatchNode * spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animMediumMonster.png"];
+    
+    [self addChild:spriteSheet];
+  
+    NSMutableArray *walkAnimFrames = [NSMutableArray array];
+    for (int i=1; i<=3; i++) {
+        [walkAnimFrames addObject:
+         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
+          [NSString stringWithFormat:@"monsterMediumSprite%d.png",i]]];
+    }
+    
+    CCAnimation *walkAnim = [CCAnimation
+                             animationWithSpriteFrames:walkAnimFrames delay:0.1f];
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    monster = [CCSprite spriteWithSpriteFrameName:@"monsterMediumSprite1.png"];
+
+    walkAction = [CCRepeatForever actionWithAction:
+                       [CCAnimate actionWithAnimation:walkAnim]];
+    
+    // Determine where to spawn the monster along the Y axis
+    int minY = monster.contentSize.height / 2;
+    int maxY = winSize.height - monster.contentSize.height/2;
+    int rangeY = maxY - minY;
+    int actualY = (arc4random() % rangeY) + minY;
+    
+    // Create the monster slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    monster.position = ccp(winSize.width + monster.contentSize.width/2, actualY);
+    
+    [monster runAction:walkAction];
+    [spriteSheet addChild:monster];
+        
+    // Determine speed of the monster
+    int minDuration = 2.0;
+    int maxDuration = 4.0;
+    int rangeDuration = maxDuration - minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    
+    // Create the actions
+    CCMoveTo * actionMove = [CCMoveTo actionWithDuration:actualDuration
+                                                position:ccp(-monster.contentSize.width/2, actualY)];
+    CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        
+        if ( ! _cheatMode ) {
+            _lifes--;    
+        }
+        [lifesLabel setString: [NSString stringWithFormat:@"Lifes: %d", _lifes]];
+        
+        if ( _lifes == 0 ) {
+            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO];
+            [[CCDirector sharedDirector] replaceScene:gameOverScene];
+        }
+        
+        // CCCallBlockN in addMonster
+        [_monsters removeObject:node];
+        
+        // CCCallBlockN in ccTouchesEnded
+        [_projectiles removeObject:node];
+    }];
+    [monster runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    
+    monster.tag = 1;
+    
+    return monster;
+}
+
+- (void) addMonster {
+    CCSprite * monster;
+    int rand = arc4random() % 100;
+    if ( rand < 90 ) {
+        monster = [self createSimpleMonster];
+    } else {
+        monster = [self createMediumMonster];
+    }
+   
     [_monsters addObject:monster];
 }
 
@@ -175,15 +279,37 @@ CCLabelTTF * scoreLabel;
 	[[app navController] dismissModalViewControllerAnimated:YES];
 }
 
+- (Boolean) isCheatModeLocation: (CGPoint) location
+{
+    //TODO: FIX BUG HERE -> 
+    return location.x <= [cheatModeLabel position].x * 2 && location.y <= [cheatModeLabel position].y;
+}
+
+- (void) toggleCheatMode
+{
+    if ( _cheatMode ){
+        _cheatMode = false;
+    } else {
+        _cheatMode = true;
+    }
+    [cheatModeLabel setString:(_cheatMode ? @"Cheat: ON" : @"Cheat: OFF")];
+    return;
+}
+
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    
+
     // Choose one of the touches to work with
     UITouch *touch = [touches anyObject];
     CGPoint location = [self convertTouchToNodeSpace:touch];
+
+    if ( [self isCheatModeLocation: location] ) {
+        [self toggleCheatMode];
+        return;
+    }
     
     // Set up initial location of projectile
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite *projectile = [CCSprite spriteWithFile:@"projectile.png"];
+    CCSprite * projectile = [CCSprite spriteWithFile:@"projectile.png"];
     projectile.position = ccp(20, winSize.height/2);
     
     // Determine offset of location to projectile

@@ -18,7 +18,7 @@
     NSMutableArray * _monsters;
     NSMutableArray * _projectiles;
     int _monstersDestroyed;
-    
+    Boolean _cheatMode;
     int _lifes;
     
 }
