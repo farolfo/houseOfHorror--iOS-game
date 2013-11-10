@@ -18,6 +18,7 @@
     NSMutableArray * _monsters;
     NSMutableArray * _projectiles;
     NSMutableArray * _lifeNodes;
+    NSMutableArray * _weapons;
     int _monstersDestroyed;
     Boolean _cheatMode;
     int _lifes;

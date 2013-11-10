@@ -20,6 +20,9 @@
 
 #pragma mark - HelloWorldLayer
 
+#define PROJECTILE_REGULAR @"projectile.png";
+#define PROJECTILE_BIG @"projectile_big.png";
+
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
 
@@ -28,6 +31,8 @@ CCLabelTTF * scoreLabel;
 CCLabelTTF * cheatModeLabel;
 CCLabelTTF * levelLabel;
 CCLabelTTF * comboLabel;
+
+NSString * projectileImage;
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) sceneFromLevel: (int) level withLifes: (int) lifes
@@ -67,6 +72,11 @@ CCLabelTTF * comboLabel;
 {
     _lifes = lifes;
     [lifesLabel setString:[NSString stringWithFormat:@"Lifes: %d", _lifes]];
+    
+    if ( _lifes == 0 ) {
+        CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level withLifes:_lifes];
+        [[CCDirector sharedDirector] replaceScene:gameOverScene];
+    }
 }
 
 -(void) updateComboTo: (int) combo
@@ -78,6 +88,8 @@ CCLabelTTF * comboLabel;
 {
     if ((self = [super init])) {
          _lifes = lifes;
+        projectileImage = PROJECTILE_REGULAR;
+        
         self.score = 0;
         
         CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -123,6 +135,7 @@ CCLabelTTF * comboLabel;
         _monsters = [[NSMutableArray alloc] init];
         _projectiles = [[NSMutableArray alloc] init];
         _lifeNodes = [[NSMutableArray alloc] init];
+        _weapons = [[NSMutableArray alloc] init];
         
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"background-music-aac.caf"];
         
@@ -133,10 +146,16 @@ CCLabelTTF * comboLabel;
 }
 
 -(void)gameLogic:(ccTime)dt {
-    [self addMonster];
-    if ( arc4random() % 100 > 95  ) {
+    int num = arc4random() % 100;
+    
+    if ( num < 90 ) {
+        [self addMonster];
+    } else if ( num < 95 ) {
         [self addLife];
+    } else {
+        [self addWeapon];
     }
+    
 }
 
 - (void) addLife
@@ -176,6 +195,47 @@ CCLabelTTF * comboLabel;
     [newLife runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
     [_lifeNodes addObject: newLife];
     newLife.tag = 1;
+    
+    return;
+}
+
+- (void) addWeapon
+{
+    CCSprite * weapon = [CCSprite spriteWithFile:@"weapon.png"];
+    
+    // Determine where to spawn the monster along the Y axis
+    CGSize winSize = [CCDirector sharedDirector].winSize;
+    int minY = weapon.contentSize.height / 2;
+    int maxY = winSize.height - weapon.contentSize.height/2;
+    int rangeY = maxY - minY;
+    int actualY = (arc4random() % rangeY) + minY;
+    
+    // Create the monster slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    weapon.position = ccp(winSize.width + weapon.contentSize.width/2, actualY);
+    
+    CCRotateBy * rotate = [CCRotateBy actionWithDuration:4.0 angle:360];
+    [weapon runAction:[CCRepeatForever actionWithAction:rotate]];
+    
+    [self addChild:weapon];//here
+    
+    // Determine speed of the monster
+    int minDuration = 5.0;
+    int maxDuration = 6.0;
+    int rangeDuration = maxDuration - minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration; //TODO this is not working !
+    
+    // Create the actions
+    CCMoveTo * actionMove = [CCMoveTo actionWithDuration:6.0
+                                                position:ccp(-weapon.contentSize.width/2, actualY)];
+    CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        
+        [_weapons removeObject:node];
+    }];
+    [weapon runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    [_weapons addObject: weapon];
+    weapon.tag = 1;
     
     return;
 }
@@ -220,11 +280,6 @@ CCLabelTTF * comboLabel;
         
         [self updateComboTo: _combo];
         [self updateLifesTo:_lifes];
-        
-        if ( _lifes == 0 ) {
-            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level withLifes:_lifes];
-            [[CCDirector sharedDirector] replaceScene:gameOverScene];
-        }
         
         // CCCallBlockN in addMonster
         [_monsters removeObject:node];
@@ -299,11 +354,6 @@ CCLabelTTF * comboLabel;
         [self updateComboTo: _combo];
         [self updateLifesTo: _lifes];
         
-        if ( _lifes == 0 ) {
-            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level withLifes:_lifes];
-            [[CCDirector sharedDirector] replaceScene:gameOverScene];
-        }
-        
         // CCCallBlockN in addMonster
         [_monsters removeObject:node];
         
@@ -341,6 +391,7 @@ CCLabelTTF * comboLabel;
     _monsters = nil;
     _lifeNodes = nil;
     _projectiles = nil;
+    _weapons = nil;
 }
 
 #pragma mark GameKit delegate
@@ -387,11 +438,14 @@ CCLabelTTF * comboLabel;
     
     // Set up initial location of projectile
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite * projectile = [CCSprite spriteWithFile:@"projectile.png"];
+    CCSprite * projectile = [CCSprite spriteWithFile:projectileImage];
     projectile.position = ccp(20, winSize.height/2);
     
     // Determine offset of location to projectile
     CGPoint offset = ccpSub(location, projectile.position);
+    
+    CCRotateBy * rotate = [CCRotateBy actionWithDuration:1.0 angle:360];
+    [projectile runAction:[CCRepeatForever actionWithAction:rotate]];
     
     // Bail out if you are shooting down or backwards
     if (offset.x <= 0) return;
@@ -419,6 +473,12 @@ CCLabelTTF * comboLabel;
          [node removeFromParentAndCleanup:YES];
          // CCCallBlockN in addMonster
          [_monsters removeObject:node];
+         
+         if ( ! _cheatMode ) {
+             projectileImage = PROJECTILE_REGULAR;
+             [self updateComboTo:1];
+             [self updateLifesTo:--_lifes];
+         }
          
          // CCCallBlockN in ccTouchesEnded
          [_projectiles removeObject:node];
@@ -476,14 +536,34 @@ CCLabelTTF * comboLabel;
     return lifesToDelete;
 }
 
+- (NSMutableArray *) analizeWeaponsToDeleteWithProjectile: (CCSprite *) projectile
+{
+    NSMutableArray * weaponsToDelete = [[NSMutableArray alloc] init];
+    
+    for (CCSprite * weapon in _weapons) {
+        if (CGRectIntersectsRect(projectile.boundingBox, weapon.boundingBox)) {
+            [weaponsToDelete addObject:weapon];
+        }
+    }
+    
+    for (CCSprite * weapon in weaponsToDelete) {
+        projectileImage = PROJECTILE_BIG;
+        [_weapons removeObject:weapon];
+        [self removeChild:weapon cleanup:YES];
+    }
+    
+    return weaponsToDelete;
+}
+
 - (void)update:(ccTime)dt {
     
     NSMutableArray *projectilesToDelete = [[NSMutableArray alloc] init];
     for (CCSprite *projectile in _projectiles) {
         NSMutableArray * monstersToDelete = [self analizeMonstersToDeleteWithProjectile: projectile];
         NSMutableArray * lifesToDelete = [self analizeLifesToDeleteWithProjectile: projectile];
+        NSMutableArray * weaponsToDelete = [self analizeWeaponsToDeleteWithProjectile: projectile];
         
-        if (monstersToDelete.count > 0 || lifesToDelete.count > 0) {
+        if (monstersToDelete.count > 0 || lifesToDelete.count > 0 || weaponsToDelete.count > 0) {
             [projectilesToDelete addObject:projectile];
         }
     }

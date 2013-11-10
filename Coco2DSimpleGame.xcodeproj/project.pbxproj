@@ -13,6 +13,7 @@
 		7F21F88A17E278A40039D4E5 /* GameOverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F21F88917E278A40039D4E5 /* GameOverLayer.m */; };
 		7F2EF28817FE2DA7008778B7 /* gameTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EF28617FE2DA6008778B7 /* gameTitle.png */; };
 		7F2EF28917FE2DA7008778B7 /* initialBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EF28717FE2DA6008778B7 /* initialBackground.jpg */; };
+		7F8DF2D3183024A5002ECE74 /* projectile_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2D2183024A5002ECE74 /* projectile_big.png */; };
 		7F9B766817DEC05F00362EEA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B766717DEC05F00362EEA /* QuartzCore.framework */; };
 		7F9B766A17DEC05F00362EEA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B766917DEC05F00362EEA /* OpenGLES.framework */; };
 		7F9B766C17DEC05F00362EEA /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B766B17DEC05F00362EEA /* OpenAL.framework */; };
@@ -167,6 +168,7 @@
 		7F21F88917E278A40039D4E5 /* GameOverLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverLayer.m; sourceTree = "<group>"; };
 		7F2EF28617FE2DA6008778B7 /* gameTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gameTitle.png; path = Resources/gameTitle.png; sourceTree = "<group>"; };
 		7F2EF28717FE2DA6008778B7 /* initialBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = initialBackground.jpg; path = Resources/initialBackground.jpg; sourceTree = "<group>"; };
+		7F8DF2D2183024A5002ECE74 /* projectile_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projectile_big.png; sourceTree = "<group>"; };
 		7F9B766417DEC05F00362EEA /* Coco2DSimpleGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coco2DSimpleGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F9B766717DEC05F00362EEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7F9B766917DEC05F00362EEA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -926,6 +928,7 @@
 		7F9B781A17DED4AA00362EEA /* Art */ = {
 			isa = PBXGroup;
 			children = (
+				7F8DF2D2183024A5002ECE74 /* projectile_big.png */,
 				7F103EC4182C80F600A98D1C /* player.png */,
 				7F9B781B17DED4AA00362EEA /* monster-hd.png */,
 				7F9B781C17DED4AA00362EEA /* monster.png */,
@@ -1023,6 +1026,7 @@
 				7F103EC5182C80F600A98D1C /* player.png in Resources */,
 				7F008817182F4F1100CB6E87 /* heart-icon.png in Resources */,
 				7F008819182F501200CB6E87 /* weapon.png in Resources */,
+				7F8DF2D3183024A5002ECE74 /* projectile_big.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
