@@ -47,11 +47,7 @@
         background = [CCSprite spriteWithFile:@"initialBackground.jpg"];
 		background.position = ccp(size.width/2, size.height/2);
         
-        CCSprite * gameTitle = [CCSprite spriteWithFile:@"gameTitle.png"];
-        gameTitle.position = ccp(size.width/2, size.height/2);
-        
         [self addChild: background z:0];
-        [self addChild: gameTitle z:1];
         
 		CCSprite * cocos2dImage;
 		
