@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F008817182F4F1100CB6E87 /* heart-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F008816182F4F1100CB6E87 /* heart-icon.png */; };
+		7F008819182F501200CB6E87 /* weapon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F008818182F501200CB6E87 /* weapon.png */; };
 		7F103EC5182C80F600A98D1C /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F103EC4182C80F600A98D1C /* player.png */; };
 		7F21F88A17E278A40039D4E5 /* GameOverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F21F88917E278A40039D4E5 /* GameOverLayer.m */; };
 		7F2EF28817FE2DA7008778B7 /* gameTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EF28617FE2DA6008778B7 /* gameTitle.png */; };
@@ -158,6 +160,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F008816182F4F1100CB6E87 /* heart-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-icon.png"; sourceTree = "<group>"; };
+		7F008818182F501200CB6E87 /* weapon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weapon.png; sourceTree = "<group>"; };
 		7F103EC4182C80F600A98D1C /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
 		7F21F88817E278A40039D4E5 /* GameOverLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverLayer.h; sourceTree = "<group>"; };
 		7F21F88917E278A40039D4E5 /* GameOverLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverLayer.m; sourceTree = "<group>"; };
@@ -532,6 +536,8 @@
 		7F9B767C17DEC05F00362EEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7F008818182F501200CB6E87 /* weapon.png */,
+				7F008816182F4F1100CB6E87 /* heart-icon.png */,
 				7FC3721D18109C5700FCEF85 /* level1.jpg */,
 				7FD55E2117FE60D100770736 /* cementery.jpg */,
 				7FD55E2317FE60D100770736 /* level2.jpg */,
@@ -1015,6 +1021,8 @@
 				7FD55E2617FE60D100770736 /* level2.jpg in Resources */,
 				7FC3721E18109C5700FCEF85 /* level1.jpg in Resources */,
 				7F103EC5182C80F600A98D1C /* player.png in Resources */,
+				7F008817182F4F1100CB6E87 /* heart-icon.png in Resources */,
+				7F008819182F501200CB6E87 /* weapon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

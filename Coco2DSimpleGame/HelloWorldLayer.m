@@ -62,6 +62,12 @@ CCLabelTTF * levelLabel;
     [scoreLabel setString:[NSString stringWithFormat:@"Score: %d", _score]];
 }
 
+-(void) updateLifesTo: (int) lifes
+{
+    _lifes = lifes;
+    [lifesLabel setString:[NSString stringWithFormat:@"Lifes: %d", _lifes]];
+}
+
 - (id) initWithLevel: (int) level
 {
     if ((self = [super init])) {
@@ -88,7 +94,7 @@ CCLabelTTF * levelLabel;
         
         _level = level;
         
-        levelLabel = [CCLabelTTF labelWithString:@"Level: 1" fontName:@"Arial" fontSize:10];
+        levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Level: %d", _level] fontName:@"Arial" fontSize:10];
         levelLabel.color = ccc3(0,0,0);
         levelLabel.position = ccp(140, winSize.height - levelLabel.contentSize.height/2 - 3);
         [self addChild:levelLabel];
@@ -103,7 +109,8 @@ CCLabelTTF * levelLabel;
         
         _monsters = [[NSMutableArray alloc] init];
         _projectiles = [[NSMutableArray alloc] init];
-                
+        _lifeNodes = [[NSMutableArray alloc] init];
+        
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"background-music-aac.caf"];
         
         [self setBackgroundByLevel];
@@ -114,6 +121,56 @@ CCLabelTTF * levelLabel;
 
 -(void)gameLogic:(ccTime)dt {
     [self addMonster];
+    if ( arc4random() % 100 > 95  ) {
+        [self addLife];
+    }
+}
+
+- (void) addLife
+{
+    CCSprite * newLife = [CCSprite spriteWithFile:@"heart-icon.png"];
+    
+    // Determine where to spawn the monster along the Y axis
+    CGSize winSize = [CCDirector sharedDirector].winSize;
+    int minY = newLife.contentSize.height / 2;
+    int maxY = winSize.height - newLife.contentSize.height/2;
+    int rangeY = maxY - minY;
+    int actualY = (arc4random() % rangeY) + minY;
+    
+    // Create the monster slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    newLife.position = ccp(winSize.width + newLife.contentSize.width/2, actualY);
+    
+    CCRotateBy * rotate = [CCRotateBy actionWithDuration:4.0 angle:360];
+    [newLife runAction:[CCRepeatForever actionWithAction:rotate]];
+    
+    [self addChild:newLife];//here
+    
+    // Determine speed of the monster
+    int minDuration = 5.0;
+    int maxDuration = 6.0;
+    int rangeDuration = maxDuration - minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    
+    // Create the actions
+    CCMoveTo * actionMove = [CCMoveTo actionWithDuration:6.0
+                                                position:ccp(-newLife.contentSize.width/2, actualY)];
+    CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        
+        [self updateLifesTo: ++_lifes];
+        
+        // CCCallBlockN in addMonster
+        [_lifeNodes removeObject:node];
+        
+        // CCCallBlockN in ccTouchesEnded
+        [_projectiles removeObject:node];
+    }];
+    [newLife runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    [_lifeNodes addObject: newLife];
+    newLife.tag = 1;
+    
+    return;
 }
 
 - (CCSprite *) createSimpleMonster {
@@ -153,7 +210,7 @@ CCLabelTTF * levelLabel;
             _lifes--;
         }
         
-        [lifesLabel setString: [NSString stringWithFormat:@"Lifes: %d", _lifes]];
+        [self updateLifesTo:_lifes];
         
         if ( _lifes == 0 ) {
             CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level];
@@ -228,7 +285,8 @@ CCLabelTTF * levelLabel;
         if ( ! _cheatMode ) {
             _lifes--;    
         }
-        [lifesLabel setString: [NSString stringWithFormat:@"Lifes: %d", _lifes]];
+        
+        [self updateLifesTo: _lifes];
         
         if ( _lifes == 0 ) {
             CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level];
@@ -270,6 +328,7 @@ CCLabelTTF * levelLabel;
 	// don't forget to call "super dealloc"
     
     _monsters = nil;
+    _lifeNodes = nil;
     _projectiles = nil;
 }
 
@@ -361,31 +420,57 @@ CCLabelTTF * levelLabel;
     [[SimpleAudioEngine sharedEngine] playEffect:@"pew-pew-lei.caf"];
 }
 
+- (NSMutableArray *) analizeMonstersToDeleteWithProjectile: (CCSprite *) projectile
+{
+    NSMutableArray *monstersToDelete = [[NSMutableArray alloc] init];
+    
+    for (CCSprite *monster in _monsters) {
+        if (CGRectIntersectsRect(projectile.boundingBox, monster.boundingBox)) {
+            [monstersToDelete addObject:monster];
+        }
+    }
+    
+    for (CCSprite *monster in monstersToDelete) {
+        self.score = self.score + 1;
+        [_monsters removeObject:monster];
+        [self removeChild:monster cleanup:YES];
+        _monstersDestroyed++;
+        if (_monstersDestroyed > 29) {
+            CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES inLevel:_level];
+            [[CCDirector sharedDirector] replaceScene:gameOverScene];
+        }
+    }
+    
+    return monstersToDelete;
+}
+
+- (NSMutableArray *) analizeLifesToDeleteWithProjectile: (CCSprite *) projectile
+{
+    NSMutableArray * lifesToDelete = [[NSMutableArray alloc] init];
+    
+    for (CCSprite * life in _lifeNodes) {
+        if (CGRectIntersectsRect(projectile.boundingBox, life.boundingBox)) {
+            [lifesToDelete addObject:life];
+        }
+    }
+    
+    for (CCSprite * life in lifesToDelete) {
+        [self updateLifesTo: ++_lifes];
+        [_lifeNodes removeObject:life];
+        [self removeChild:life cleanup:YES];
+    }
+    
+    return lifesToDelete;
+}
+
 - (void)update:(ccTime)dt {
     
     NSMutableArray *projectilesToDelete = [[NSMutableArray alloc] init];
     for (CCSprite *projectile in _projectiles) {
+        NSMutableArray * monstersToDelete = [self analizeMonstersToDeleteWithProjectile: projectile];
+        NSMutableArray * lifesToDelete = [self analizeLifesToDeleteWithProjectile: projectile];
         
-        NSMutableArray *monstersToDelete = [[NSMutableArray alloc] init];
-        for (CCSprite *monster in _monsters) {
-            
-            if (CGRectIntersectsRect(projectile.boundingBox, monster.boundingBox)) {
-                [monstersToDelete addObject:monster];
-            }
-        }
-        
-        for (CCSprite *monster in monstersToDelete) {
-            self.score = self.score + 1;
-            [_monsters removeObject:monster];
-            [self removeChild:monster cleanup:YES];
-            _monstersDestroyed++;
-            if (_monstersDestroyed > 30) {
-                CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES inLevel:_level];
-                [[CCDirector sharedDirector] replaceScene:gameOverScene];
-            }
-        }
-        
-        if (monstersToDelete.count > 0) {
+        if (monstersToDelete.count > 0 || lifesToDelete.count > 0) {
             [projectilesToDelete addObject:projectile];
         }
     }
