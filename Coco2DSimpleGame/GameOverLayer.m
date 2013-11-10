@@ -12,14 +12,14 @@
 @implementation GameOverLayer
 
 
-+(CCScene *) sceneWithWon:(BOOL)won inLevel: (int) level {
++(CCScene *) sceneWithWon:(BOOL)won inLevel: (int) level withLifes: (int) lifes{
     CCScene *scene = [CCScene node];
-    GameOverLayer *layer = [[GameOverLayer alloc] initWithWon:won inLevel:level];
+    GameOverLayer *layer = [[GameOverLayer alloc] initWithWon:won inLevel:level withLifes:lifes];
     [scene addChild: layer];
     return scene;
 }
 
-- (id)initWithWon:(BOOL)won inLevel: (int) level{
+- (id)initWithWon:(BOOL)won inLevel: (int) level withLifes: (int) lifes{
     if ((self = [super initWithColor:ccc4(255, 255, 255, 255)])) {
         
         NSString * message;
@@ -36,18 +36,21 @@
         label.position = ccp(winSize.width/2, winSize.height/2);
         [self addChild:label];
         
-        int nextLevel;
-        if ( level == 3 ) {
+        int nextLevel, nextLifes;
+        
+        if ( (won && level == 3) || ! won ) {
             nextLevel = 1;
+            nextLifes = 5;
         } else {
-            nextLevel = ++level;
+            nextLevel = level + 1;
+            nextLifes = lifes;
         }
         
         [self runAction:
          [CCSequence actions:
           [CCDelayTime actionWithDuration:3],
           [CCCallBlockN actionWithBlock:^(CCNode *node) {
-             [[CCDirector sharedDirector] replaceScene: [HelloWorldLayer sceneFromLevel: nextLevel]];
+             [[CCDirector sharedDirector] replaceScene: [HelloWorldLayer sceneFromLevel: nextLevel withLifes:nextLifes]];
          }],
           nil]];
     }

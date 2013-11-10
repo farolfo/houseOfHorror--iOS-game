@@ -25,11 +25,11 @@
     int _combo;
 }
 
--(id) initWithLevel: (int) level;
+-(id) initWithLevel: (int) level withLifes: (int) lifes;
 
 @property (nonatomic) int score;
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
-+(CCScene *) sceneFromLevel: (int) level;
++(CCScene *) sceneFromLevel: (int) level withLifes: (int) lifes;
 
 @end

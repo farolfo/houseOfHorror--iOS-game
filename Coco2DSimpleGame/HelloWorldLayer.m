@@ -30,13 +30,13 @@ CCLabelTTF * levelLabel;
 CCLabelTTF * comboLabel;
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
-+(CCScene *) sceneFromLevel: (int) level
++(CCScene *) sceneFromLevel: (int) level withLifes: (int) lifes
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
 	
 	// 'layer' is an autorelease object.
-	HelloWorldLayer *layer = [[HelloWorldLayer alloc] initWithLevel: level];
+	HelloWorldLayer *layer = [[HelloWorldLayer alloc] initWithLevel: level withLifes: lifes];
     
     layer.touchEnabled= YES;
 	
@@ -74,10 +74,10 @@ CCLabelTTF * comboLabel;
     _combo = combo;
     [comboLabel setString:[NSString stringWithFormat:@"Combo: +%d", _combo]];}
 
-- (id) initWithLevel: (int) level
+- (id) initWithLevel: (int) level withLifes: (int) lifes
 {
     if ((self = [super init])) {
-         _lifes = 5;
+         _lifes = lifes;
         self.score = 0;
         
         CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -222,7 +222,7 @@ CCLabelTTF * comboLabel;
         [self updateLifesTo:_lifes];
         
         if ( _lifes == 0 ) {
-            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level];
+            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level withLifes:_lifes];
             [[CCDirector sharedDirector] replaceScene:gameOverScene];
         }
         
@@ -300,7 +300,7 @@ CCLabelTTF * comboLabel;
         [self updateLifesTo: _lifes];
         
         if ( _lifes == 0 ) {
-            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level];
+            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level withLifes:_lifes];
             [[CCDirector sharedDirector] replaceScene:gameOverScene];
         }
         
@@ -449,7 +449,7 @@ CCLabelTTF * comboLabel;
         [self removeChild:monster cleanup:YES];
         _monstersDestroyed++;
         if (_score > 100) {
-            CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES inLevel:_level];
+            CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES inLevel:_level withLifes:_lifes];
             [[CCDirector sharedDirector] replaceScene:gameOverScene];
         }
     }
