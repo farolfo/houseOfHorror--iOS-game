@@ -11,7 +11,8 @@
 
 @interface GameOverLayer : CCLayerColor
 
-+(CCScene *) sceneWithWon:(BOOL)won;
-- (id)initWithWon:(BOOL)won;
++(CCScene *) sceneWithWon:(BOOL)won inLevel: (int) level;
+- (id)initWithWon:(BOOL)won inLevel: (int) level;
+- (NSString *) getMessageWithLevel: (int) level;
 
 @end

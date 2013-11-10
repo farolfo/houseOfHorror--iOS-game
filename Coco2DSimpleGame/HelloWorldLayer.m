@@ -26,15 +26,16 @@
 CCLabelTTF * lifesLabel;
 CCLabelTTF * scoreLabel;
 CCLabelTTF * cheatModeLabel;
+CCLabelTTF * levelLabel;
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
-+(CCScene *) scene
++(CCScene *) sceneFromLevel: (int) level
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
 	
 	// 'layer' is an autorelease object.
-	HelloWorldLayer *layer = [HelloWorldLayer node];
+	HelloWorldLayer *layer = [[HelloWorldLayer alloc] initWithLevel: level];
     
     layer.touchEnabled= YES;
 	
@@ -61,7 +62,7 @@ CCLabelTTF * cheatModeLabel;
     [scoreLabel setString:[NSString stringWithFormat:@"Score: %d", _score]];
 }
 
-- (id) init
+- (id) initWithLevel: (int) level
 {
     if ((self = [super init])) {
          _lifes = 5;
@@ -82,8 +83,15 @@ CCLabelTTF * cheatModeLabel;
         
         cheatModeLabel = [CCLabelTTF labelWithString:@"Cheat: ON" fontName:@"Arial" fontSize:10];
         cheatModeLabel.color = ccc3(0,0,0);
-        cheatModeLabel.position = ccp(40, winSize.height - lifesLabel.contentSize.height/2 - 3);
+        cheatModeLabel.position = ccp(40, winSize.height - cheatModeLabel.contentSize.height/2 - 3);
         [self addChild:cheatModeLabel];
+        
+        _level = level;
+        
+        levelLabel = [CCLabelTTF labelWithString:@"Level: 1" fontName:@"Arial" fontSize:10];
+        levelLabel.color = ccc3(0,0,0);
+        levelLabel.position = ccp(140, winSize.height - levelLabel.contentSize.height/2 - 3);
+        [self addChild:levelLabel];
         
         scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score: %d", self.score] fontName:@"Arial" fontSize:10];
         scoreLabel.color = ccc3(0,0,0);
@@ -148,7 +156,7 @@ CCLabelTTF * cheatModeLabel;
         [lifesLabel setString: [NSString stringWithFormat:@"Lifes: %d", _lifes]];
         
         if ( _lifes == 0 ) {
-            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO];
+            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level];
             [[CCDirector sharedDirector] replaceScene:gameOverScene];
         }
         
@@ -223,7 +231,7 @@ CCLabelTTF * cheatModeLabel;
         [lifesLabel setString: [NSString stringWithFormat:@"Lifes: %d", _lifes]];
         
         if ( _lifes == 0 ) {
-            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO];
+            CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level];
             [[CCDirector sharedDirector] replaceScene:gameOverScene];
         }
         
@@ -372,7 +380,7 @@ CCLabelTTF * cheatModeLabel;
             [self removeChild:monster cleanup:YES];
             _monstersDestroyed++;
             if (_monstersDestroyed > 30) {
-                CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES];
+                CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES inLevel:_level];
                 [[CCDirector sharedDirector] replaceScene:gameOverScene];
             }
         }

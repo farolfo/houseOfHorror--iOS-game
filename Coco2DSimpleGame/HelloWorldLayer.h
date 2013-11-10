@@ -20,12 +20,14 @@
     int _monstersDestroyed;
     Boolean _cheatMode;
     int _lifes;
-    
+    int _level;
 }
+
+-(id) initWithLevel: (int) level;
 
 @property (nonatomic) int score;
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
-+(CCScene *) scene;
++(CCScene *) sceneFromLevel: (int) level;
 
 @end
