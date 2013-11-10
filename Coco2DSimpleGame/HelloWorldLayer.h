@@ -22,6 +22,7 @@
     Boolean _cheatMode;
     int _lifes;
     int _level;
+    int _combo;
 }
 
 -(id) initWithLevel: (int) level;

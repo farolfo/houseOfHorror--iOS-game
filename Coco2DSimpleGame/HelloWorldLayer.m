@@ -27,6 +27,7 @@ CCLabelTTF * lifesLabel;
 CCLabelTTF * scoreLabel;
 CCLabelTTF * cheatModeLabel;
 CCLabelTTF * levelLabel;
+CCLabelTTF * comboLabel;
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) sceneFromLevel: (int) level
@@ -68,6 +69,11 @@ CCLabelTTF * levelLabel;
     [lifesLabel setString:[NSString stringWithFormat:@"Lifes: %d", _lifes]];
 }
 
+-(void) updateComboTo: (int) combo
+{
+    _combo = combo;
+    [comboLabel setString:[NSString stringWithFormat:@"Combo: +%d", _combo]];}
+
 - (id) initWithLevel: (int) level
 {
     if ((self = [super init])) {
@@ -78,7 +84,7 @@ CCLabelTTF * levelLabel;
         
         lifesLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Lifes: %d", _lifes] fontName:@"Arial" fontSize:10];
         lifesLabel.color = ccc3(0,0,0);
-        lifesLabel.position = ccp(winSize.width - 70, winSize.height - lifesLabel.contentSize.height/2 - 3);
+        lifesLabel.position = ccp(winSize.width - 90, winSize.height - lifesLabel.contentSize.height/2 - 3);
         [self addChild:lifesLabel];
         
         CCSprite *player = [CCSprite spriteWithFile:@"player.png"];
@@ -98,6 +104,13 @@ CCLabelTTF * levelLabel;
         levelLabel.color = ccc3(0,0,0);
         levelLabel.position = ccp(140, winSize.height - levelLabel.contentSize.height/2 - 3);
         [self addChild:levelLabel];
+        
+        _combo = 1;
+        
+        comboLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Combo: +%d", _combo] fontName:@"Arial" fontSize:10];
+        comboLabel.color = ccc3(0,0,0);
+        comboLabel.position = ccp(240, winSize.height - comboLabel.contentSize.height/2 - 3);
+        [self addChild:comboLabel];
         
         scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score: %d", self.score] fontName:@"Arial" fontSize:10];
         scoreLabel.color = ccc3(0,0,0);
@@ -150,7 +163,7 @@ CCLabelTTF * levelLabel;
     int minDuration = 5.0;
     int maxDuration = 6.0;
     int rangeDuration = maxDuration - minDuration;
-    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration; //TODO this is not working !
     
     // Create the actions
     CCMoveTo * actionMove = [CCMoveTo actionWithDuration:6.0
@@ -158,13 +171,7 @@ CCLabelTTF * levelLabel;
     CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
         
-        [self updateLifesTo: ++_lifes];
-        
-        // CCCallBlockN in addMonster
         [_lifeNodes removeObject:node];
-        
-        // CCCallBlockN in ccTouchesEnded
-        [_projectiles removeObject:node];
     }];
     [newLife runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
     [_lifeNodes addObject: newLife];
@@ -208,8 +215,10 @@ CCLabelTTF * levelLabel;
         
         if ( ! _cheatMode ){
             _lifes--;
+            _combo = 1;
         }
         
+        [self updateComboTo: _combo];
         [self updateLifesTo:_lifes];
         
         if ( _lifes == 0 ) {
@@ -283,9 +292,11 @@ CCLabelTTF * levelLabel;
         [node removeFromParentAndCleanup:YES];
         
         if ( ! _cheatMode ) {
-            _lifes--;    
+            _lifes--;
+            _combo = 1;
         }
         
+        [self updateComboTo: _combo];
         [self updateLifesTo: _lifes];
         
         if ( _lifes == 0 ) {
@@ -431,11 +442,13 @@ CCLabelTTF * levelLabel;
     }
     
     for (CCSprite *monster in monstersToDelete) {
-        self.score = self.score + 1;
+        self.score = self.score + _combo;
+        _combo++;
+        [self updateComboTo: _combo];
         [_monsters removeObject:monster];
         [self removeChild:monster cleanup:YES];
         _monstersDestroyed++;
-        if (_monstersDestroyed > 29) {
+        if (_score > 100) {
             CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES inLevel:_level];
             [[CCDirector sharedDirector] replaceScene:gameOverScene];
         }
