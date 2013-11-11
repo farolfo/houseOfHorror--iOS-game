@@ -3,6 +3,8 @@
 
 iOS game developed with cocos2d for the iOS development subject at ITBA
 
+![alt text](/Coco2DSimpleGame/Resources/screenshots/screenshot1.png "screen1")
+
 ###Build me
 
 Clone the project and open it your Xcode.
@@ -40,3 +42,9 @@ TODO ->
 
 ###Some screenshots
 
+![alt text](/Coco2DSimpleGame/Resources/screenshots/screenshot2.png "screen2")
+![alt text](/Coco2DSimpleGame/Resources/screenshots/screenshot3.png "screen3")
+![alt text](/Coco2DSimpleGame/Resources/screenshots/screenshot4.png "screen4")
+![alt text](/Coco2DSimpleGame/Resources/screenshots/screenshot5.png "screen5")
+![alt text](/Coco2DSimpleGame/Resources/screenshots/screenshot6.png "screen6")
+![alt text](/Coco2DSimpleGame/Resources/screenshots/screenshot7.png "screen7")
