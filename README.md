@@ -7,8 +7,8 @@ iOS game developed with cocos2d for the iOS development subject at ITBA
 
 ###Build me
 
-Clone the project and open it your Xcode.
-We are using the 2.1 beta version of cocos2d, so download it [here](http://www.cocos2d-iphone.org/cocos2d-iphone-v2-1-beta-released/) and drag the cocos2d-ios.xcodeproj file to the root the project in the Xcode.
+Clone the project and open it your `Xcode`.
+We are using the 2.1 beta version of `cocos2d`, so download it [here](http://www.cocos2d-iphone.org/cocos2d-iphone-v2-1-beta-released/) and drag the `cocos2d-ios.xcodeproj` file to the root the project in the `Xcode`.
 Click play and ready to play !
 
 ###Rules
