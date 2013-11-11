@@ -36,6 +36,10 @@ CCLabelTTF * comboLabel;
 
 NSString * projectileImage;
 
+Boolean bossAppeared = false;
+Boolean bossIsKilled = false;
+int bossShots = 0;
+
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) sceneFromLevel: (int) level withLifes: (int) lifes
 {
@@ -313,9 +317,9 @@ NSString * projectileImage;
     CCSprite * monster;
     CCAction * walkAction;
     
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animSimpleGhost-hd.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animSimpleGhost-ipadhd.plist"];
 
-    CCSpriteBatchNode * spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animSimpleGhost-hd.png"];
+    CCSpriteBatchNode * spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animSimpleGhost-ipadhd.png"];
     
     [self addChild:spriteSheet];
   
@@ -381,6 +385,70 @@ NSString * projectileImage;
     return monster;
 }
 
+- (CCSprite *) createBossMonster
+{
+    CCSprite * monster;
+    CCAction * walkAction;
+    
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animBossGhost-ipadhd.plist"];
+    
+    CCSpriteBatchNode * spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animBossGhost-ipadhd.png"];
+    
+    [self addChild:spriteSheet];
+    
+    NSMutableArray *walkAnimFrames = [NSMutableArray array];
+    for (int i=1; i<=3; i++) {
+        [walkAnimFrames addObject:
+         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
+          [NSString stringWithFormat:@"boss_ghost_%d.png",i]]];
+    }
+    
+    CCAnimation *walkAnim = [CCAnimation
+                             animationWithSpriteFrames:walkAnimFrames delay:0.1f];
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    monster = [CCSprite spriteWithSpriteFrameName:@"boss_ghost_1.png"];
+    
+    walkAction = [CCRepeatForever actionWithAction:
+                  [CCAnimate actionWithAnimation:walkAnim]];
+    
+    // Determine where to spawn the monster along the Y axis
+    int minY = monster.contentSize.height / 2;
+    int maxY = winSize.height - monster.contentSize.height/2;
+    int rangeY = maxY - minY;
+    int actualY = (arc4random() % rangeY) + minY;
+    
+    // Create the monster slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    monster.position = ccp(winSize.width + monster.contentSize.width/2, actualY);
+    
+    [monster runAction:walkAction];
+    [spriteSheet addChild:monster];
+    
+    // Create the actions
+    CCMoveTo * actionMove = [CCMoveTo actionWithDuration:20.0
+                                                position:ccp(-monster.contentSize.width/2, actualY)];
+    CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+
+        
+        // CCCallBlockN in addMonster
+        [_monsters removeObject:node];
+        
+        // CCCallBlockN in ccTouchesEnded
+        [_projectiles removeObject:node];
+        
+        CCScene *gameOverScene = [GameOverLayer sceneWithWon:NO inLevel:_level withLifes:_lifes];
+        [[CCDirector sharedDirector] replaceScene:gameOverScene];
+    }];
+    [monster runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    
+    monster.tag = 5;
+    
+    return monster;
+}
+
+
 - (CCSprite *) getMonsterForLevel1
 {
     int rand = arc4random() % 100;
@@ -401,18 +469,33 @@ NSString * projectileImage;
     return 0;
 }
 
+- (CCSprite *) getMonsterForLevel3
+{
+    if ( _score > 100 && ! bossAppeared) {
+        bossAppeared = true;
+        return [self createBossMonster];
+    }
+    int rand = arc4random() % 100;
+    if ( rand < 60 ) {
+        return [self createSimpleMonster];
+    } else {
+        return [self createMediumMonster];
+    }
+    return 0;
+}
+
 - (CCSprite *) getMonsterForLevel: (int) level
 {
     CCSprite * monster;
     switch (level) {
         case 1:
-            monster = [self getMonsterForLevel2];
+            monster = [self getMonsterForLevel1];
             break;
         case 2:
-            monster = [self getMonsterForLevel1];
+            monster = [self getMonsterForLevel2];
             break;
         case 3:
-            monster = [self getMonsterForLevel1];
+            monster = [self getMonsterForLevel3];
             break;
         default:
             break;
@@ -545,7 +628,15 @@ NSString * projectileImage;
     
     for (CCSprite *monster in _monsters) {
         if (CGRectIntersectsRect(projectile.boundingBox, monster.boundingBox)) {
-            [monstersToDelete addObject:monster];
+            if ( monster.tag == 5 ) {
+                bossShots++;
+                if ( bossShots > 6 ) {
+                    bossIsKilled = true;
+                    [monstersToDelete addObject:monster];
+                }
+            } else {
+                [monstersToDelete addObject:monster];
+            }
         }
     }
     
@@ -556,7 +647,12 @@ NSString * projectileImage;
         [_monsters removeObject:monster];
         [self removeChild:monster cleanup:YES];
         _monstersDestroyed++;
-        if (_score > 100) {
+        if (_score > 100 && _level == 3) {
+            if ( bossIsKilled ) {
+                CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES inLevel:_level withLifes:_lifes];
+                [[CCDirector sharedDirector] replaceScene:gameOverScene];
+            }
+        } else if ( _score > 100 ) {
             CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES inLevel:_level withLifes:_lifes];
             [[CCDirector sharedDirector] replaceScene:gameOverScene];
         }
