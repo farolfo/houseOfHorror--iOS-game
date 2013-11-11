@@ -26,6 +26,7 @@
     int _combo;
 }
 
+- (NSString *) getBackgroundFileForLevel: (int) level;
 -(id) initWithLevel: (int) level withLifes: (int) lifes;
 
 @property (nonatomic) int score;

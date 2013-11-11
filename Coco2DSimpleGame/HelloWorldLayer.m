@@ -23,6 +23,8 @@
 #define PROJECTILE_REGULAR @"projectile.png";
 #define PROJECTILE_BIG @"projectile_big.png";
 
+#define WHITE ccc3(255,255,255);
+
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
 
@@ -56,10 +58,23 @@ NSString * projectileImage;
 {
     CGSize size = [[CCDirector sharedDirector] winSize];
 
-    CCSprite * background = [CCSprite spriteWithFile:@"level1.jpg"];
+    CCSprite * background = [CCSprite spriteWithFile: [self getBackgroundFileForLevel:_level]];
     background.position = ccp(size.width/2, size.height/2);
     
     [self addChild:background z: -100];
+}
+
+- (NSString *) getBackgroundFileForLevel: (int) level
+{
+    switch (level ) {
+        case 1:
+            return @"level1.jpg";
+        case 2:
+            return @"level2.jpg";
+        case 3:
+            return @"cementery.jpg";
+    }
+    return @"level1.jpg";
 }
 
 - (void) setScore:(int)score
@@ -95,7 +110,7 @@ NSString * projectileImage;
         CGSize winSize = [CCDirector sharedDirector].winSize;
         
         lifesLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Lifes: %d", _lifes] fontName:@"Arial" fontSize:10];
-        lifesLabel.color = ccc3(0,0,0);
+        lifesLabel.color = WHITE;
         lifesLabel.position = ccp(winSize.width - 90, winSize.height - lifesLabel.contentSize.height/2 - 3);
         [self addChild:lifesLabel];
         
@@ -106,26 +121,26 @@ NSString * projectileImage;
         _cheatMode = true;
         
         cheatModeLabel = [CCLabelTTF labelWithString:@"Cheat: ON" fontName:@"Arial" fontSize:10];
-        cheatModeLabel.color = ccc3(0,0,0);
+        cheatModeLabel.color = WHITE;
         cheatModeLabel.position = ccp(40, winSize.height - cheatModeLabel.contentSize.height/2 - 3);
         [self addChild:cheatModeLabel];
         
         _level = level;
         
         levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Level: %d", _level] fontName:@"Arial" fontSize:10];
-        levelLabel.color = ccc3(0,0,0);
+        levelLabel.color = WHITE;
         levelLabel.position = ccp(140, winSize.height - levelLabel.contentSize.height/2 - 3);
         [self addChild:levelLabel];
         
         _combo = 1;
         
         comboLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Combo: +%d", _combo] fontName:@"Arial" fontSize:10];
-        comboLabel.color = ccc3(0,0,0);
+        comboLabel.color = WHITE;
         comboLabel.position = ccp(240, winSize.height - comboLabel.contentSize.height/2 - 3);
         [self addChild:comboLabel];
         
         scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score: %d", self.score] fontName:@"Arial" fontSize:10];
-        scoreLabel.color = ccc3(0,0,0);
+        scoreLabel.color = WHITE;
         scoreLabel.position = ccp(winSize.width - 30, winSize.height - scoreLabel.contentSize.height/2 - 3);
         [self addChild:scoreLabel];
         
@@ -155,7 +170,6 @@ NSString * projectileImage;
     } else {
         [self addWeapon];
     }
-    
 }
 
 - (void) addLife
@@ -240,8 +254,8 @@ NSString * projectileImage;
     return;
 }
 
-- (CCSprite *) createSimpleMonster {
-    CCSprite * monster = [CCSprite spriteWithFile:@"monster.png"];
+- (CCSprite *) createMediumMonster {
+    CCSprite * monster = [CCSprite spriteWithFile:@"mediumGhost.png"];
     
     // Determine where to spawn the monster along the Y axis
     CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -294,29 +308,29 @@ NSString * projectileImage;
     return monster;
 }
 
-- (CCSprite *) createMediumMonster {
+- (CCSprite *) createSimpleMonster {
     
     CCSprite * monster;
     CCAction * walkAction;
     
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animMediumMonster.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animSimpleGhost-hd.plist"];
 
-    CCSpriteBatchNode * spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animMediumMonster.png"];
+    CCSpriteBatchNode * spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animSimpleGhost-hd.png"];
     
     [self addChild:spriteSheet];
   
     NSMutableArray *walkAnimFrames = [NSMutableArray array];
-    for (int i=1; i<=3; i++) {
+    for (int i=1; i<=4; i++) {
         [walkAnimFrames addObject:
          [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
-          [NSString stringWithFormat:@"monsterMediumSprite%d.png",i]]];
+          [NSString stringWithFormat:@"simple_ghost_%d.png",i]]];
     }
     
     CCAnimation *walkAnim = [CCAnimation
                              animationWithSpriteFrames:walkAnimFrames delay:0.1f];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    monster = [CCSprite spriteWithSpriteFrameName:@"monsterMediumSprite1.png"];
+    monster = [CCSprite spriteWithSpriteFrameName:@"simple_ghost_1.png"];
 
     walkAction = [CCRepeatForever actionWithAction:
                        [CCAnimate actionWithAnimation:walkAnim]];
@@ -367,16 +381,50 @@ NSString * projectileImage;
     return monster;
 }
 
-- (void) addMonster {
-    CCSprite * monster;
+- (CCSprite *) getMonsterForLevel1
+{
     int rand = arc4random() % 100;
-    if ( rand < 90 ) {
-        monster = [self createSimpleMonster];
-    } else {
-        monster = [self createMediumMonster];
+    if ( rand < 80 ) {
+        return [self createSimpleMonster];
     }
-   
-    [_monsters addObject:monster];
+    return 0;
+}
+
+- (CCSprite *) getMonsterForLevel2
+{
+    int rand = arc4random() % 100;
+    if ( rand < 60 ) {
+        return [self createSimpleMonster];
+    } else {
+        return [self createMediumMonster];
+    }
+    return 0;
+}
+
+- (CCSprite *) getMonsterForLevel: (int) level
+{
+    CCSprite * monster;
+    switch (level) {
+        case 1:
+            monster = [self getMonsterForLevel2];
+            break;
+        case 2:
+            monster = [self getMonsterForLevel1];
+            break;
+        case 3:
+            monster = [self getMonsterForLevel1];
+            break;
+        default:
+            break;
+    }
+    return monster;
+}
+
+- (void) addMonster {
+    CCSprite * monster = [self getMonsterForLevel: _level];
+    if ( monster ) {
+        [_monsters addObject:monster];
+    }
 }
 
 // on "dealloc" you need to release all your retained objects

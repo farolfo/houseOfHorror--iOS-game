@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405809137.585058"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "391"
-         endingLineNumber = "391"
+         startingLineNumber = "439"
+         endingLineNumber = "439"
          landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405809137.585058"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "391"
-         endingLineNumber = "391"
+         startingLineNumber = "439"
+         endingLineNumber = "439"
          landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405809137.585058"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "391"
-         endingLineNumber = "391"
+         startingLineNumber = "439"
+         endingLineNumber = "439"
          landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405809137.585058"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "391"
-         endingLineNumber = "391"
+         startingLineNumber = "439"
+         endingLineNumber = "439"
          landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405809137.585058"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "391"
-         endingLineNumber = "391"
+         startingLineNumber = "439"
+         endingLineNumber = "439"
          landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405809137.585058"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "412"
-         endingLineNumber = "412"
+         startingLineNumber = "460"
+         endingLineNumber = "460"
          landmarkName = "-isCheatModeLocation:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405809137.585058"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "421"
-         endingLineNumber = "421"
+         startingLineNumber = "469"
+         endingLineNumber = "469"
          landmarkName = "-toggleCheatMode"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405809137.585058"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "414"
-         endingLineNumber = "414"
+         startingLineNumber = "462"
+         endingLineNumber = "462"
          landmarkName = "-isCheatModeLocation:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405809137.585058"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "524"
-         endingLineNumber = "524"
+         startingLineNumber = "572"
+         endingLineNumber = "572"
          landmarkName = "-analizeLifesToDeleteWithProjectile:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405811163.820031"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "429"
-         endingLineNumber = "429"
+         startingLineNumber = "477"
+         endingLineNumber = "477"
          landmarkName = "-ccTouchesEnded:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405811312.792247"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "430"
-         endingLineNumber = "430"
+         startingLineNumber = "478"
+         endingLineNumber = "478"
          landmarkName = "-ccTouchesEnded:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,12 +164,64 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
-         timestampString = "405811528.094838"
+         timestampString = "405835713.556541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "566"
-         endingLineNumber = "566"
+         startingLineNumber = "614"
+         endingLineNumber = "614"
          landmarkName = "-update:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
+         timestampString = "405835713.556541"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "548"
+         endingLineNumber = "548"
+         landmarkName = "-analizeMonstersToDeleteWithProjectile:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
+         timestampString = "405835713.556541"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "546"
+         endingLineNumber = "546"
+         landmarkName = "-analizeMonstersToDeleteWithProjectile:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
+         timestampString = "405835713.556541"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "547"
+         endingLineNumber = "547"
+         landmarkName = "-analizeMonstersToDeleteWithProjectile:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
+         timestampString = "405835713.556541"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "425"
+         endingLineNumber = "425"
+         landmarkName = "-addMonster"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

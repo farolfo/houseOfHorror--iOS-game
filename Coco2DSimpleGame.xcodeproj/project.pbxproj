@@ -14,6 +14,19 @@
 		7F8DF2D3183024A5002ECE74 /* projectile_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2D2183024A5002ECE74 /* projectile_big.png */; };
 		7F8DF2D518303D91002ECE74 /* initialBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2D418303D91002ECE74 /* initialBackground.jpg */; };
 		7F8DF2D718303DB6002ECE74 /* houseOfHorror.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2D618303DB6002ECE74 /* houseOfHorror.png */; };
+		7F8DF2DE183081AE002ECE74 /* animSimpleGhost-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2D8183081AD002ECE74 /* animSimpleGhost-hd.plist */; };
+		7F8DF2DF183081AE002ECE74 /* animSimpleGhost-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2D9183081AD002ECE74 /* animSimpleGhost-hd.png */; };
+		7F8DF2E0183081AE002ECE74 /* animSimpleGhost-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2DA183081AE002ECE74 /* animSimpleGhost-ipadhd.plist */; };
+		7F8DF2E1183081AE002ECE74 /* animSimpleGhost-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2DB183081AE002ECE74 /* animSimpleGhost-ipadhd.png */; };
+		7F8DF2E2183081AE002ECE74 /* animSimpleGhost.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2DC183081AE002ECE74 /* animSimpleGhost.plist */; };
+		7F8DF2E3183081AE002ECE74 /* animSimpleGhost.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2DD183081AE002ECE74 /* animSimpleGhost.png */; };
+		7F8DF2E5183086F6002ECE74 /* mediumGhost.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2E4183086F5002ECE74 /* mediumGhost.png */; };
+		7F8DF2EC18308AA0002ECE74 /* animBossGhost-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2E618308A9C002ECE74 /* animBossGhost-hd.plist */; };
+		7F8DF2ED18308AA0002ECE74 /* animBossGhost-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2E718308A9C002ECE74 /* animBossGhost-hd.png */; };
+		7F8DF2EE18308AA0002ECE74 /* animBossGhost-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2E818308A9D002ECE74 /* animBossGhost-ipadhd.plist */; };
+		7F8DF2EF18308AA0002ECE74 /* animBossGhost-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2E918308A9E002ECE74 /* animBossGhost-ipadhd.png */; };
+		7F8DF2F018308AA0002ECE74 /* animBossGhost.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2EA18308A9F002ECE74 /* animBossGhost.plist */; };
+		7F8DF2F118308AA0002ECE74 /* animBossGhost.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2EB18308AA0002ECE74 /* animBossGhost.png */; };
 		7F9B766817DEC05F00362EEA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B766717DEC05F00362EEA /* QuartzCore.framework */; };
 		7F9B766A17DEC05F00362EEA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B766917DEC05F00362EEA /* OpenGLES.framework */; };
 		7F9B766C17DEC05F00362EEA /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B766B17DEC05F00362EEA /* OpenAL.framework */; };
@@ -169,6 +182,19 @@
 		7F8DF2D2183024A5002ECE74 /* projectile_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projectile_big.png; sourceTree = "<group>"; };
 		7F8DF2D418303D91002ECE74 /* initialBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = initialBackground.jpg; sourceTree = "<group>"; };
 		7F8DF2D618303DB6002ECE74 /* houseOfHorror.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houseOfHorror.png; sourceTree = "<group>"; };
+		7F8DF2D8183081AD002ECE74 /* animSimpleGhost-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "animSimpleGhost-hd.plist"; path = "Resources/animSimpleGhost-hd.plist"; sourceTree = "<group>"; };
+		7F8DF2D9183081AD002ECE74 /* animSimpleGhost-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "animSimpleGhost-hd.png"; path = "Resources/animSimpleGhost-hd.png"; sourceTree = "<group>"; };
+		7F8DF2DA183081AE002ECE74 /* animSimpleGhost-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "animSimpleGhost-ipadhd.plist"; path = "Resources/animSimpleGhost-ipadhd.plist"; sourceTree = "<group>"; };
+		7F8DF2DB183081AE002ECE74 /* animSimpleGhost-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "animSimpleGhost-ipadhd.png"; path = "Resources/animSimpleGhost-ipadhd.png"; sourceTree = "<group>"; };
+		7F8DF2DC183081AE002ECE74 /* animSimpleGhost.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = animSimpleGhost.plist; path = Resources/animSimpleGhost.plist; sourceTree = "<group>"; };
+		7F8DF2DD183081AE002ECE74 /* animSimpleGhost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = animSimpleGhost.png; path = Resources/animSimpleGhost.png; sourceTree = "<group>"; };
+		7F8DF2E4183086F5002ECE74 /* mediumGhost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mediumGhost.png; sourceTree = "<group>"; };
+		7F8DF2E618308A9C002ECE74 /* animBossGhost-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "animBossGhost-hd.plist"; path = "Resources/animBossGhost-hd.plist"; sourceTree = "<group>"; };
+		7F8DF2E718308A9C002ECE74 /* animBossGhost-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "animBossGhost-hd.png"; path = "Resources/animBossGhost-hd.png"; sourceTree = "<group>"; };
+		7F8DF2E818308A9D002ECE74 /* animBossGhost-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "animBossGhost-ipadhd.plist"; path = "Resources/animBossGhost-ipadhd.plist"; sourceTree = "<group>"; };
+		7F8DF2E918308A9E002ECE74 /* animBossGhost-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "animBossGhost-ipadhd.png"; path = "Resources/animBossGhost-ipadhd.png"; sourceTree = "<group>"; };
+		7F8DF2EA18308A9F002ECE74 /* animBossGhost.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = animBossGhost.plist; path = Resources/animBossGhost.plist; sourceTree = "<group>"; };
+		7F8DF2EB18308AA0002ECE74 /* animBossGhost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = animBossGhost.png; path = Resources/animBossGhost.png; sourceTree = "<group>"; };
 		7F9B766417DEC05F00362EEA /* Coco2DSimpleGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coco2DSimpleGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F9B766717DEC05F00362EEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7F9B766917DEC05F00362EEA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -538,6 +564,19 @@
 		7F9B767C17DEC05F00362EEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7F8DF2E618308A9C002ECE74 /* animBossGhost-hd.plist */,
+				7F8DF2E718308A9C002ECE74 /* animBossGhost-hd.png */,
+				7F8DF2E818308A9D002ECE74 /* animBossGhost-ipadhd.plist */,
+				7F8DF2E918308A9E002ECE74 /* animBossGhost-ipadhd.png */,
+				7F8DF2EA18308A9F002ECE74 /* animBossGhost.plist */,
+				7F8DF2EB18308AA0002ECE74 /* animBossGhost.png */,
+				7F8DF2E4183086F5002ECE74 /* mediumGhost.png */,
+				7F8DF2D8183081AD002ECE74 /* animSimpleGhost-hd.plist */,
+				7F8DF2D9183081AD002ECE74 /* animSimpleGhost-hd.png */,
+				7F8DF2DA183081AE002ECE74 /* animSimpleGhost-ipadhd.plist */,
+				7F8DF2DB183081AE002ECE74 /* animSimpleGhost-ipadhd.png */,
+				7F8DF2DC183081AE002ECE74 /* animSimpleGhost.plist */,
+				7F8DF2DD183081AE002ECE74 /* animSimpleGhost.png */,
 				7F8DF2D618303DB6002ECE74 /* houseOfHorror.png */,
 				7F8DF2D418303D91002ECE74 /* initialBackground.jpg */,
 				7F008818182F501200CB6E87 /* weapon.png */,
@@ -1027,6 +1066,19 @@
 				7F8DF2D3183024A5002ECE74 /* projectile_big.png in Resources */,
 				7F8DF2D518303D91002ECE74 /* initialBackground.jpg in Resources */,
 				7F8DF2D718303DB6002ECE74 /* houseOfHorror.png in Resources */,
+				7F8DF2DE183081AE002ECE74 /* animSimpleGhost-hd.plist in Resources */,
+				7F8DF2DF183081AE002ECE74 /* animSimpleGhost-hd.png in Resources */,
+				7F8DF2E0183081AE002ECE74 /* animSimpleGhost-ipadhd.plist in Resources */,
+				7F8DF2E1183081AE002ECE74 /* animSimpleGhost-ipadhd.png in Resources */,
+				7F8DF2E2183081AE002ECE74 /* animSimpleGhost.plist in Resources */,
+				7F8DF2E3183081AE002ECE74 /* animSimpleGhost.png in Resources */,
+				7F8DF2E5183086F6002ECE74 /* mediumGhost.png in Resources */,
+				7F8DF2EC18308AA0002ECE74 /* animBossGhost-hd.plist in Resources */,
+				7F8DF2ED18308AA0002ECE74 /* animBossGhost-hd.png in Resources */,
+				7F8DF2EE18308AA0002ECE74 /* animBossGhost-ipadhd.plist in Resources */,
+				7F8DF2EF18308AA0002ECE74 /* animBossGhost-ipadhd.png in Resources */,
+				7F8DF2F018308AA0002ECE74 /* animBossGhost.plist in Resources */,
+				7F8DF2F118308AA0002ECE74 /* animBossGhost.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
