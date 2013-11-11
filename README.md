@@ -1,26 +1,31 @@
 ![alt text](/Coco2DSimpleGame/houseOfHorror.png "House of Horror")
 =======================
 
-iOS game developed with cocos2d for the iOS development subject at ITBA
+iOS game developed with `cocos2d` for the iOS development subject at ITBA
 
 ![alt text](/Coco2DSimpleGame/Resources/screenshots/screenshot1.png "screen1")
 
 ###Build me
 
-Clone the project and open it your `Xcode`.
-We are using the 2.1 beta version of `cocos2d`, so download it [here](http://www.cocos2d-iphone.org/cocos2d-iphone-v2-1-beta-released/) and drag the `cocos2d-ios.xcodeproj` file to the root the project in the `Xcode`.
+Clone the project and open it in your `Xcode`.
+
+We are using the 2.1 beta version of `cocos2d`, so download it [here](http://www.cocos2d-iphone.org/cocos2d-iphone-v2-1-beta-released/) and drag the `cocos2d-ios.xcodeproj` file to the root of the project in the `Xcode`.
 Click play and ready to play !
 
 ###Rules
 
-You have to go thorugh three levels, beating ghosts in a hounted house.
-To pass to the other level, you have to reach an ammount of 100 points in the score. By beating a ghost you get as many points as the 'combo' says.
-The combo starts at 1 and will increasse in each ghost you beat.
-If any ghost makes it to the other side of the screen, you will lose one life and get the combo reseted to one. Be aware ! If you throw a projectile that doesn't beats anything, you will get one life less and the combo to 1 too.
-But we want to help you ! You will see hearts flying there and beat them when you see them, you wll get a new life more. Also you may see guns flying, this will make your projectiles bigger so you can beat ghosts easely.
-Be aware ! If you lose a projectile or a ghost makes it to the other side of the screen, you will be reseted to regular projectiles.
+You have to go thorugh three levels, beating ghosts in a haunted house.
 
-Once you get to the third level and get 100 points in score, you will see the boss ! Beat it with 5 projectiles to kill and you'll win !
+To be able to go to the other level, you have to reach an amount of 100 points in score. By beating a ghost you get as many points as the 'combo' says.
+The combo starts at 1 and will increasse in each ghost you beat.
+
+If any ghost makes it to the other side of the screen, you will lose one life and get the combo reseted to 1. Be aware ! If you throw a projectile that doesn't beat anything, you will get one life less and the combo in 1 too.
+
+But we want to help you ! You will see hearts flying over there... beat them ! You wll get a new life more. Also you may see guns flying, this will make your projectiles bigger so you can beat ghosts easely.
+
+Be aware ! If you lose a projectile or a ghost makes it to the other side of the screen, you will be reseted to regular projectiles again.
+
+Once you get to the third level and get 100 points in score, you will see the boss ! Beat it with 5 projectiles to kill it and you'll win !
 
 ###Features
 
