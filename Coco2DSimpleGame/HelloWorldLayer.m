@@ -39,6 +39,7 @@ NSString * projectileImage;
 Boolean bossAppeared = false;
 Boolean bossIsKilled = false;
 int bossShots = 0;
+Boolean bossShootted = false;
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
 +(CCScene *) sceneFromLevel: (int) level withLifes: (int) lifes
@@ -129,7 +130,7 @@ int bossShots = 0;
         cheatModeLabel.position = ccp(40, winSize.height - cheatModeLabel.contentSize.height/2 - 3);
         [self addChild:cheatModeLabel];
         
-        _level = level;
+        _level = 3;
         
         levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Level: %d", _level] fontName:@"Arial" fontSize:10];
         levelLabel.color = WHITE;
@@ -314,14 +315,13 @@ int bossShots = 0;
 
 - (CCSprite *) createSimpleMonster {
     
-    CCSprite * monster;
     CCAction * walkAction;
     
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animSimpleGhost-ipadhd.plist"];
 
-    CCSpriteBatchNode * spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animSimpleGhost-ipadhd.png"];
+    CCSprite * monster = [CCSprite spriteWithSpriteFrameName:@"simple_ghost_1.png"];
     
-    [self addChild:spriteSheet];
+    [self addChild:monster];
   
     NSMutableArray *walkAnimFrames = [NSMutableArray array];
     for (int i=1; i<=4; i++) {
@@ -334,7 +334,6 @@ int bossShots = 0;
                              animationWithSpriteFrames:walkAnimFrames delay:0.1f];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    monster = [CCSprite spriteWithSpriteFrameName:@"simple_ghost_1.png"];
 
     walkAction = [CCRepeatForever actionWithAction:
                        [CCAnimate actionWithAnimation:walkAnim]];
@@ -350,7 +349,6 @@ int bossShots = 0;
     monster.position = ccp(winSize.width + monster.contentSize.width/2, actualY);
     
     [monster runAction:walkAction];
-    [spriteSheet addChild:monster];
         
     // Determine speed of the monster
     int minDuration = 2.0;
@@ -387,14 +385,14 @@ int bossShots = 0;
 
 - (CCSprite *) createBossMonster
 {
-    CCSprite * monster;
+    
     CCAction * walkAction;
     
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animBossGhost-ipadhd.plist"];
     
-    CCSpriteBatchNode * spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animBossGhost-ipadhd.png"];
+    CCSprite * monster = [CCSprite spriteWithSpriteFrameName:@"boss_ghost_1.png"];
     
-    [self addChild:spriteSheet];
+    [self addChild:monster];
     
     NSMutableArray *walkAnimFrames = [NSMutableArray array];
     for (int i=1; i<=3; i++) {
@@ -407,7 +405,6 @@ int bossShots = 0;
                              animationWithSpriteFrames:walkAnimFrames delay:0.1f];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    monster = [CCSprite spriteWithSpriteFrameName:@"boss_ghost_1.png"];
     
     walkAction = [CCRepeatForever actionWithAction:
                   [CCAnimate actionWithAnimation:walkAnim]];
@@ -423,7 +420,6 @@ int bossShots = 0;
     monster.position = ccp(winSize.width + monster.contentSize.width/2, actualY);
     
     [monster runAction:walkAction];
-    [spriteSheet addChild:monster];
     
     // Create the actions
     CCMoveTo * actionMove = [CCMoveTo actionWithDuration:20.0
@@ -630,6 +626,7 @@ int bossShots = 0;
         if (CGRectIntersectsRect(projectile.boundingBox, monster.boundingBox)) {
             if ( monster.tag == 5 ) {
                 bossShots++;
+                bossShootted = true;
                 if ( bossShots > 6 ) {
                     bossIsKilled = true;
                     [monstersToDelete addObject:monster];
@@ -707,8 +704,9 @@ int bossShots = 0;
         NSMutableArray * lifesToDelete = [self analizeLifesToDeleteWithProjectile: projectile];
         NSMutableArray * weaponsToDelete = [self analizeWeaponsToDeleteWithProjectile: projectile];
         
-        if (monstersToDelete.count > 0 || lifesToDelete.count > 0 || weaponsToDelete.count > 0) {
+        if (monstersToDelete.count > 0 || lifesToDelete.count > 0 || weaponsToDelete.count > 0 || bossShootted) {
             [projectilesToDelete addObject:projectile];
+            bossShootted = false;
         }
     }
     
