@@ -130,7 +130,7 @@ Boolean bossShootted = false;
         cheatModeLabel.position = ccp(40, winSize.height - cheatModeLabel.contentSize.height/2 - 3);
         [self addChild:cheatModeLabel];
         
-        _level = 3;
+        _level = level;
         
         levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Level: %d", _level] fontName:@"Arial" fontSize:10];
         levelLabel.color = WHITE;
@@ -537,8 +537,7 @@ Boolean bossShootted = false;
 
 - (Boolean) isCheatModeLocation: (CGPoint) location
 {
-    //TODO: FIX BUG HERE -> 
-    return location.x <= [cheatModeLabel position].x * 2 && location.y <= [cheatModeLabel position].y;
+    return location.x <= [cheatModeLabel position].x * 2 && location.y >= [cheatModeLabel position].y - 20;
 }
 
 - (void) toggleCheatMode
