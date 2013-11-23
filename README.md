@@ -40,9 +40,6 @@ Once you get to the third level and get 100 points in score, you will see the bo
 
 TODO ->
 * Particles
-* fix bug de remove of sprites
-* ajustar velocidades de sprites voladores
-* fix bug de click en cheat mode
 * que si ganas o perdes se te rediriga al home page
 
 ###Some screenshots
