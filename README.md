@@ -37,10 +37,7 @@ Once you get to the third level and get 100 points in score, you will see the bo
 * Combo to increasse your scores.
 * 2 types of guns.
 * Cheat mode implemented.
-
-TODO ->
 * Particles
-* que si ganas o perdes se te rediriga al home page
 
 ###Some screenshots
 
