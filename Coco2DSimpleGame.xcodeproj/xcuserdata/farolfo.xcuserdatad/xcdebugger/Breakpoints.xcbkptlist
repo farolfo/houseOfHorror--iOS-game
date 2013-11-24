@@ -72,19 +72,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Coco2DSimpleGame/IntroLayer.m"
-         timestampString = "405814784.903489"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "53"
-         endingLineNumber = "53"
-         landmarkName = "-init"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "Coco2DSimpleGame/HelloWorldLayer.m"
          timestampString = "406943010.144247"
          startingColumnNumber = "9223372036854775807"
@@ -300,6 +287,19 @@
          startingLineNumber = "642"
          endingLineNumber = "642"
          landmarkName = "-analizeMonstersToDeleteWithProjectile:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Coco2DSimpleGame/GameOverLayer.m"
+         timestampString = "406944723.554939"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "49"
+         endingLineNumber = "49"
+         landmarkName = "-initWithWon:inLevel:withLifes:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -8,6 +8,7 @@
 
 #import "GameOverLayer.h"
 #import "HelloWorldLayer.h"
+#import "IntroLayer.h"
 
 @implementation GameOverLayer
 
@@ -38,21 +39,25 @@
         
         int nextLevel, nextLifes;
         
-        if ( (won && level == 3) || ! won ) {
-            nextLevel = 1;
-            nextLifes = 5;
-        } else {
-            nextLevel = level + 1;
-            nextLifes = lifes;
-        }
+        nextLevel = level + 1;
+        nextLifes = lifes;
         
+        CCScene * nextLayer;
+        if ( (won && level == 3) || ! won  ) {
+            nextLayer = [IntroLayer scene];
+        } else {
+            nextLayer = [HelloWorldLayer sceneFromLevel: nextLevel withLifes:nextLifes];
+        }
+
         [self runAction:
          [CCSequence actions:
           [CCDelayTime actionWithDuration:3],
           [CCCallBlockN actionWithBlock:^(CCNode *node) {
-             [[CCDirector sharedDirector] replaceScene: [HelloWorldLayer sceneFromLevel: nextLevel withLifes:nextLifes]];
+             [[CCDirector sharedDirector] replaceScene: nextLayer];
          }],
           nil]];
+
+    
     }
     return self;
 }

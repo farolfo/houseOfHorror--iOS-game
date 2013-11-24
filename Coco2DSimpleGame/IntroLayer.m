@@ -48,24 +48,6 @@
 		background.position = ccp(size.width/2, size.height/2);
         
         [self addChild: background z:0];
-        
-		CCSprite * cocos2dImage;
-		
-		if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
-			cocos2dImage = [CCSprite spriteWithFile:@"Default.png"];
-			cocos2dImage.rotation = 90;
-		} else {
-			cocos2dImage = [CCSprite spriteWithFile:@"Default-Landscape~ipad.png"];
-		}
-		cocos2dImage.position = ccp(size.width/2, size.height/2);
-
-		// add the label as a child to this Layer
-		[self addChild: cocos2dImage z:10];
-        
-        [cocos2dImage setOpacity:255];
-        CCAction *fadeOut = [CCFadeTo actionWithDuration:2 opacity:0];
-
-        [cocos2dImage runAction:fadeOut];
 	}
 	
 	return self;
