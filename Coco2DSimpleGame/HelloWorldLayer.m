@@ -102,7 +102,8 @@ Boolean bossShootted = false;
 -(void) updateComboTo: (int) combo
 {
     _combo = combo;
-    [comboLabel setString:[NSString stringWithFormat:@"Combo: +%d", _combo]];}
+    [comboLabel setString:[NSString stringWithFormat:@"Combo: +%d", _combo]];
+}
 
 - (id) initWithLevel: (int) level withLifes: (int) lifes
 {
@@ -160,9 +161,23 @@ Boolean bossShootted = false;
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"background-music-aac.caf"];
         
         [self setBackgroundByLevel];
+        
+        
     }
     
     return self;
+}
+
+-(void) addParticleInX: (int) x andY: (int) y
+{
+    CCParticleSystemQuad * particle = [CCParticleSystemQuad particleWithFile:@"particles.plist"];
+ 
+    [particle setBlendFunc:(ccBlendFunc){GL_ZERO,GL_ONE_MINUS_SRC_COLOR}];
+    [particle setDuration:0.1];
+    [particle setPosition: ccp(x,y)];
+    [particle setAutoRemoveOnFinish:YES];
+    
+    [self addChild: particle z:100];
 }
 
 -(void)gameLogic:(ccTime)dt {
@@ -643,6 +658,7 @@ Boolean bossShootted = false;
         [_monsters removeObject:monster];
         [self removeChild:monster cleanup:YES];
         _monstersDestroyed++;
+        [self addParticleInX: [monster position].x andY: [monster position].y];
         if (_score > 100 && _level == 3) {
             if ( bossIsKilled ) {
                 CCScene *gameOverScene = [GameOverLayer sceneWithWon:YES inLevel:_level withLifes:_lifes];

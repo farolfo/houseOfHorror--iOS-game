@@ -11,6 +11,8 @@
 		7F008819182F501200CB6E87 /* weapon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F008818182F501200CB6E87 /* weapon.png */; };
 		7F103EC5182C80F600A98D1C /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F103EC4182C80F600A98D1C /* player.png */; };
 		7F21F88A17E278A40039D4E5 /* GameOverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F21F88917E278A40039D4E5 /* GameOverLayer.m */; };
+		7F55C00A184164B300AC6868 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F55C008184164B100AC6868 /* texture.png */; };
+		7F55C00B184164B300AC6868 /* particles.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F55C009184164B200AC6868 /* particles.plist */; };
 		7F8DF2D3183024A5002ECE74 /* projectile_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2D2183024A5002ECE74 /* projectile_big.png */; };
 		7F8DF2D518303D91002ECE74 /* initialBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2D418303D91002ECE74 /* initialBackground.jpg */; };
 		7F8DF2D718303DB6002ECE74 /* houseOfHorror.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DF2D618303DB6002ECE74 /* houseOfHorror.png */; };
@@ -179,6 +181,8 @@
 		7F103EC4182C80F600A98D1C /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
 		7F21F88817E278A40039D4E5 /* GameOverLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverLayer.h; sourceTree = "<group>"; };
 		7F21F88917E278A40039D4E5 /* GameOverLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverLayer.m; sourceTree = "<group>"; };
+		7F55C008184164B100AC6868 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
+		7F55C009184164B200AC6868 /* particles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = particles.plist; sourceTree = "<group>"; };
 		7F8DF2D2183024A5002ECE74 /* projectile_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projectile_big.png; sourceTree = "<group>"; };
 		7F8DF2D418303D91002ECE74 /* initialBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = initialBackground.jpg; sourceTree = "<group>"; };
 		7F8DF2D618303DB6002ECE74 /* houseOfHorror.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houseOfHorror.png; sourceTree = "<group>"; };
@@ -564,6 +568,8 @@
 		7F9B767C17DEC05F00362EEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7F55C008184164B100AC6868 /* texture.png */,
+				7F55C009184164B200AC6868 /* particles.plist */,
 				7F8DF2E618308A9C002ECE74 /* animBossGhost-hd.plist */,
 				7F8DF2E718308A9C002ECE74 /* animBossGhost-hd.png */,
 				7F8DF2E818308A9D002ECE74 /* animBossGhost-ipadhd.plist */,
@@ -1079,6 +1085,8 @@
 				7F8DF2EF18308AA0002ECE74 /* animBossGhost-ipadhd.png in Resources */,
 				7F8DF2F018308AA0002ECE74 /* animBossGhost.plist in Resources */,
 				7F8DF2F118308AA0002ECE74 /* animBossGhost.png in Resources */,
+				7F55C00A184164B300AC6868 /* texture.png in Resources */,
+				7F55C00B184164B300AC6868 /* particles.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
