@@ -117,7 +117,7 @@ Boolean bossShootted = false;
         
         lifesLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Lifes: %d", _lifes] fontName:@"Arial" fontSize:10];
         lifesLabel.color = WHITE;
-        lifesLabel.position = ccp(winSize.width - 90, winSize.height - lifesLabel.contentSize.height/2 - 3);
+        lifesLabel.position = ccp(winSize.width - 130, winSize.height - lifesLabel.contentSize.height/2 - 3);
         [self addChild:lifesLabel];
         
         CCSprite *player = [CCSprite spriteWithFile:@"player.png"];
@@ -172,7 +172,7 @@ Boolean bossShootted = false;
 {
     CCParticleSystemQuad * particle = [CCParticleSystemQuad particleWithFile:@"particles.plist"];
  
-    [particle setBlendFunc:(ccBlendFunc){GL_ZERO,GL_ONE_MINUS_SRC_COLOR}];
+    [particle setBlendFunc:(ccBlendFunc){GL_ONE,GL_ONE}];
     [particle setDuration:0.1];
     [particle setPosition: ccp(x,y)];
     [particle setAutoRemoveOnFinish:YES];
@@ -216,10 +216,10 @@ Boolean bossShootted = false;
     int minDuration = 5.0;
     int maxDuration = 6.0;
     int rangeDuration = maxDuration - minDuration;
-    int actualDuration = (arc4random() % rangeDuration) + minDuration; //TODO this is not working !
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-    CCMoveTo * actionMove = [CCMoveTo actionWithDuration:6.0
+    CCMoveTo * actionMove = [CCMoveTo actionWithDuration:actualDuration
                                                 position:ccp(-newLife.contentSize.width/2, actualY)];
     CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
@@ -257,10 +257,10 @@ Boolean bossShootted = false;
     int minDuration = 5.0;
     int maxDuration = 6.0;
     int rangeDuration = maxDuration - minDuration;
-    int actualDuration = (arc4random() % rangeDuration) + minDuration; //TODO this is not working !
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-    CCMoveTo * actionMove = [CCMoveTo actionWithDuration:6.0
+    CCMoveTo * actionMove = [CCMoveTo actionWithDuration:actualDuration
                                                 position:ccp(-weapon.contentSize.width/2, actualY)];
     CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
